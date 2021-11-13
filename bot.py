@@ -7,6 +7,7 @@ load_dotenv()
 
 TOKEN = os.getenv('TOKEN')
 client = discord.Client()
+MAXIMUM_SPAM = 20
 
 @client.event
 async def on_ready():
@@ -22,10 +23,14 @@ async def on_message(message):
         spam_user = user_msg[1]
 
         spam_count = int(user_msg[2])
-        maximum_spam = 20
-        num = min(maximum_spam, spam_count)
+        num = min(MAXIMUM_SPAM, spam_count)
         
         for i in range(num):
             await message.channel.send(spam_user)
+
+    if (message.content.startswith('$spam')):
+        await message.channel.send('Incorrect Usage')
+        await message.channel.send('$spam [text message] [number of times to spam]')
+        await message.channel.send(f'Currently, the maximum number is {MAXIMUM_SPAM}')
              
 client.run(TOKEN)
