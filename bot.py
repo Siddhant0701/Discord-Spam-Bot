@@ -28,7 +28,7 @@ async def on_message(message):
         for i in range(num):
             await message.channel.send(spam_user)
 
-    if (message.content.startswith('$spam')):
+    elif (message.content.startswith('$spam')):
         await message.channel.send('Incorrect Usage')
         await message.channel.send('$spam [text message] [number of times to spam]')
         await message.channel.send(f'Currently, the maximum number is {MAXIMUM_SPAM}')
